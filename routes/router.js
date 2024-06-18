@@ -9,7 +9,7 @@ const routeHandler = (req, res) => {
     const parsedUrl = new URL(req.url, baseUrl);
     const path = parsedUrl.pathname;
 
-    if (path.startsWith('/users')) {
+    if (path.startsWith('/users/') || path === '/users') {
         userRoutes(req, res);
     } else {
         res.setHeader('Content-Type', 'application/json');
