@@ -1,35 +1,30 @@
-const http = require('http');
-const { URL } = require('url');
+const { updateUser, deleteUser } = require("../O2/withRouter/data");
 
-//Массив для хранения пользователей
-let data = [];
+//The array for storing users and current Id
+let users = [];
+let currentId = 1;
 
-//Индивидуальный индекс
-let index = 0;
-
-//Функция для обработки запросов
-const requestHandler = (req, res) => {
-    const baseUrl = `http://${req.headers.host}/`;
-    const parsedUrl = new URL(req.url, baseUrl);
-    const path = parsedUrl.pathname;
-    const method = req.method;
-
-    //Заголовок ответа
-    res.setHeader('Content-Type', 'application/json')
-
-    if (path.startsWith('/user/') && method === 'GET'){
-        res.writeHead(200);
-        res.end(JSON.stringify({message: 'It works!'}));
-    } else {
-        res.writeHead(404);
-        console.log(path, method);
-        res.end(JSON.stringify({message: 'It stil works!'}));
-    }
+module.exports = {
+    getUsers: () => users,
+    addUser: (user) => {
+        user.id = currentId++;
+        users.push(user);
+    },
+    updateUser: (id, updatedData) => {
+        const userIndex = users.findIndex(item => item.id === id);
+        if (~userIndex) {
+            users[userIndex] = {...users[userIndex], ...updatedData};
+            return users[userIndex];
+        }
+        return null;
+    },
+    deleteUser: (id) => {
+        const userIndex = users.findIndex(item => item.id === id);
+        if (~userIndex) {
+            users.splice(userIndex, 1);
+            return true;
+        }
+        return false;
+    },
+    getUserById: (id) => users.find(item => item.id === id),
 };
-
-const server = http.createServer(requestHandler);
-
-const PORT = 8080;
-server.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
