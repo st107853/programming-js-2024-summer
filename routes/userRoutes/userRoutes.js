@@ -4,7 +4,7 @@ const { URL } = require('url');
 const createUser = require('./createUser');
 const deleteUser = require('./deleteUser');
 const getUser = require('./getUser');
-const listUsers = require('./listUsers');
+const listUsers = require('./listUser');
 const updateUser = require('./updateUser');
 
 //The function for processing requests
