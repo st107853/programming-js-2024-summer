@@ -1,5 +1,3 @@
-const { updateUser, deleteUser } = require("../O2/withRouter/data");
-
 //The array for storing users and current Id
 let users = [];
 let currentId = 1;
