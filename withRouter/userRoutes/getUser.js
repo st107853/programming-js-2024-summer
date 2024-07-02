@@ -1,4 +1,4 @@
-const data = require('../../sql-data');
+const data = require('../sql-data');
 
 module.exports = async (req, res) => {
     const id = parseInt(req.url.split('/')[2]);

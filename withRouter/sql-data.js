@@ -1,7 +1,7 @@
 const sqlite3 = require('sqlite3').verbose();
-const db = sqlite3.Database('mydatabase.db');
+const db = new sqlite3.Database('mydatabase.db');
 
-db.run(`CREATE TABLE IF NOT EXIST users (
+db.run(`CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
     age INTEGER NOT NULL,
@@ -10,7 +10,7 @@ db.run(`CREATE TABLE IF NOT EXIST users (
 
 
 module.exports = {
-    async getUser() {
+    async getUsers() {
         try {
             const user = await new Promise((resolve, reject) => {
                 db.all('SELECT * FROM users', [], (err, rows) => {

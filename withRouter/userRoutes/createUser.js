@@ -1,4 +1,4 @@
-const data = require('../../sql-data');
+const data = require('../sql-data');
 
 module.exports = (req, res) => {
     let body = '';
@@ -17,7 +17,7 @@ module.exports = (req, res) => {
             const user = {name, age: parseInt(age), university: university ?? "the user did not enter the university"}
             const createdUser = await data.addUser(user);
             res.writeHead(201);
-            res.end(JSON.stringify(Createduser));
+            res.end(JSON.stringify(createdUser));
         } else {
             res.writeHead(400);
             res.end(JSON.stringify({message: 'Name and age are required'}));
