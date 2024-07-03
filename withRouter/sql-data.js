@@ -28,7 +28,7 @@ module.exports = {
 
     async addUser(user) {
         const lastId = await new Promise((resolve, reject) => {
-            db.run(`INSERT INTO users (name, age) VALUES (?, ?)`, [user.name, user.age], function (err) {
+            db.run(`INSERT INTO users (name, age, university) VALUES (?, ?, ?)`, [user.name, user.age, user.university], function (err) {
                 if (err) {
                     reject(err);
                 }
@@ -40,7 +40,7 @@ module.exports = {
 
     async updateUser(id, updatedData) {
         const changes = await new Promise((resolve, reject) => {
-            db.run(`UPDATE users SET name = ?, age = ? WHERE id = ?`, [updatedData.name, updatedData.age, id], function (err) {
+            db.run(`UPDATE users SET name = ?, age = ?, university = ? WHERE id = ?`, [updatedData.name, updatedData.age, updatedData.university, id], function (err) {
                 if (err) {
                     reject(err);
                 }

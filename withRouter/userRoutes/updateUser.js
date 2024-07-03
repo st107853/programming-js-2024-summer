@@ -10,9 +10,13 @@ module.exports = (req, res) => {
 
     req.on('end', async () => {
         const parsedBody = new URLSearchParams(body);
-        const updatedData = {};
+        const updatedData = await data.getUserById(id);
         parsedBody.forEach((value, key) => {
-            updatedData[key] = key === 'age' ? parseInt(value) : value ? value : 'is unknown';
+            if (key === 'age' && value !== undefined) {
+                updatedData[age] = parseInt(value);
+            } else if (value !== undefined) {
+                updatedData[key] = value;
+            }
         });
 
         const updatedUser = await data.updateUser(id, updatedData);
